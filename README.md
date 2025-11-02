@@ -1,92 +1,20 @@
-# 🧠 Face Recognition Using PCA and ANN
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+</div>
 
-This project implements a face recognition system using **Principal Component Analysis (PCA)** for feature extraction and an **Artificial Neural Network (ANN)** for classification. It uses Python libraries such as NumPy, SciPy, and OpenCV.
+# Run and deploy your AI Studio app
 
-## 📁 Dataset
+This contains everything you need to run your app locally.
 
-Download the dataset from [this GitHub link](https://github.com/robaita/introduction_to_machine_learning/blob/main/dataset.zip).
+View your app in AI Studio: https://ai.studio/apps/drive/1S-FLlxs6EhKvzMV1oJu3C0rOwDpvVsEs
 
-## 🛠 Libraries Used
+## Run Locally
 
-- `NumPy`, `SciPy`: Matrix operations, SVD, eigen decomposition
-- `OpenCV`: Image reading and preprocessing
-- `Python`: PCA and ANN implementation
+**Prerequisites:**  Node.js
 
----
 
-## 🚀 Project Workflow
-
-### 🔧 Training Phase
-
-1. **Generate Face Database**
-   - Convert each image to a column vector.
-   - Stack vectors to form a matrix of size `mn × p`.
-
-2. **Mean Calculation**
-   - Compute the mean face vector.
-
-3. **Mean Normalization**
-   - Subtract the mean face from each image.
-
-4. **Covariance Matrix**
-   - Use surrogate covariance method (Turk & Pentland) to compute a `p × p` matrix.
-
-5. **Eigen Decomposition**
-   - Extract eigenvalues and eigenvectors.
-   - Sort eigenvalues and select top `k` eigenvectors.
-
-6. **Feature Vector Generation**
-   - Project mean-normalized faces onto selected eigenvectors.
-
-7. **Eigenfaces**
-   - Generate eigenfaces from feature vectors.
-
-8. **Signature Generation**
-   - Project each face onto eigenfaces to get its signature.
-
-9. **ANN Training**
-   - Train a backpropagation neural network using the signature vectors.
-
----
-
-### 🧪 Testing Phase
-
-1. **Preprocess Test Image**
-   - Convert to column vector and subtract mean face.
-
-2. **Feature Projection**
-   - Project onto eigenfaces to get test signature.
-
-3. **Classification**
-   - Use trained ANN to classify the test image.
-
----
-
-## 📊 Evaluation
-
-- **Accuracy vs. k Value**
-  - Vary `k` and plot accuracy to analyze performance.
-
-- **Imposter Detection**
-  - Add unknown faces to test set and evaluate rejection capability.
-
----
-
-## 📈 Output
-
-- Accuracy graph vs. number of eigenfaces (`k`)
-- Classification results from ANN
-- Imposter recognition performance
-
----
-
-## 🧪 Notes
-
-- Use 60% of data for training and 40% for testing.
-- Experiment with different values of `k` to optimize accuracy.
-
----
-
-## 👨‍💻 Author
-
-This project was implemented as part of a machine learning module focused on dimensionality reduction and neural networks.
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`
