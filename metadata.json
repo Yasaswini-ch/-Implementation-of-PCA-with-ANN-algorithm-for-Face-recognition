@@ -1,0 +1,5 @@
+{
+  "name": "Interactive PCA & ANN Face Recognition Explainer",
+  "description": "An educational web application that visually explains the steps of the Principal Component Analysis (PCA) and Eigenfaces algorithm for face recognition, with AI-powered explanations for each stage.",
+  "requestFramePermissions": []
+}
