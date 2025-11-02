@@ -1,92 +1,155 @@
-# 🧠 Face Recognition Using PCA and ANN
+# Video Category Classification System
 
-This project implements a face recognition system using **Principal Component Analysis (PCA)** for feature extraction and an **Artificial Neural Network (ANN)** for classification. It uses Python libraries such as NumPy, SciPy, and OpenCV.
+## Overview
+This project implements a machine learning system for classifying videos into different categories based on their engagement metrics and characteristics. It uses Principal Component Analysis (PCA) for dimensionality reduction and a Neural Network for classification.
 
-## 📁 Dataset
+## Features
+- Multi-class video classification
+- PCA-based feature reduction
+- Neural Network classifier using scikit-learn
+- Comprehensive metrics analysis
+- Support for various engagement features
 
-Download the dataset from [this GitHub link](https://github.com/robaita/introduction_to_machine_learning/blob/main/dataset.zip).
+## Requirements
+- Python 3.x
+- Required packages:
+  - numpy
+  - pandas
+  - scikit-learn
+  - matplotlib
+  - scipy
 
-## 🛠 Libraries Used
+## Installation
+1. Clone the repository
+2. Create a virtual environment:
+```powershell
+python -m venv venv
+```
+3. Activate the virtual environment:
+```powershell
+.\venv\Scripts\activate
+```
+4. Install required packages:
+```powershell
+pip install numpy pandas scikit-learn matplotlib scipy
+```
 
-- `NumPy`, `SciPy`: Matrix operations, SVD, eigen decomposition
-- `OpenCV`: Image reading and preprocessing
-- `Python`: PCA and ANN implementation
+## Data Features
+The system uses the following features for classification:
+- Video views
+- Likes and dislikes
+- Comment count
+- Video duration
+- Days since publication
+- Engagement metrics (derived)
+  - Likes per view
+  - Comments per view
+  - Dislikes per view
+  - Overall engagement rate
 
----
+## Model Architecture
+### Feature Processing
+1. **Log Transformation** for highly skewed features:
+   - Views
+   - Likes
+   - Dislikes
+   - Comments
 
-## 🚀 Project Workflow
+2. **PCA Transformation**
+   - Tested with components k=6 through k=10
+   - Best performance with k=8 (99.24% explained variance)
 
-### 🔧 Training Phase
+3. **Neural Network**
+   - MLPClassifier from scikit-learn
+   - Adaptive learning rate
+   - ReLU activation function
+   - Adam optimizer
 
-1. **Generate Face Database**
-   - Convert each image to a column vector.
-   - Stack vectors to form a matrix of size `mn × p`.
+## Performance Metrics
+### Best Configuration (k=8 components)
+- Overall Accuracy: 29.26%
+- Per-Category Performance:
+  ```
+  Category    Precision    Recall    F1-Score
+  ---------------------------------------------
+  A           0.10        0.62      0.18
+  B           0.27        0.45      0.34
+  C           0.18        0.42      0.26
+  D           0.77        0.19      0.30
+  E           0.33        0.29      0.31
+  F           0.23        0.47      0.31
+  G           0.37        0.39      0.38
+  H           0.09        0.44      0.15
+  ```
 
-2. **Mean Calculation**
-   - Compute the mean face vector.
+## Component Analysis
+### Top PCA Components
+1. Component 1: Engagement volume (likes, dislikes, comments)
+2. Component 2: Engagement rates per view
+3. Component 3: Video duration and timing metrics
+4. Component 4: Dislike patterns
+5. Component 5: Publication timing
+6. Component 6: Comment engagement
+7. Component 7: Comment-dislike relationships
+8. Component 8: View-like relationships
 
-3. **Mean Normalization**
-   - Subtract the mean face from each image.
+## Usage
+1. Activate the virtual environment:
+```powershell
+.\venv\Scripts\activate
+```
 
-4. **Covariance Matrix**
-   - Use surrogate covariance method (Turk & Pentland) to compute a `p × p` matrix.
+2. Run the classification system:
+```powershell
+python video_classification_sklearn.py
+```
 
-5. **Eigen Decomposition**
-   - Extract eigenvalues and eigenvectors.
-   - Sort eigenvalues and select top `k` eigenvectors.
+## Model Output
+The system provides:
+- Classification accuracy for each k value
+- Detailed classification reports
+- PCA component analysis
+- Training progress monitoring
+- Validation scores during training
 
-6. **Feature Vector Generation**
-   - Project mean-normalized faces onto selected eigenvectors.
+## Limitations and Considerations
+1. Class Imbalance
+   - Some categories have significantly more samples
+   - Category D: 4,419 samples
+   - Category A: 181 samples
 
-7. **Eigenfaces**
-   - Generate eigenfaces from feature vectors.
+2. Performance Variations
+   - Higher precision for high-volume categories
+   - Lower precision for minority classes
+   - Trade-off between precision and recall
 
-8. **Signature Generation**
-   - Project each face onto eigenfaces to get its signature.
+3. Feature Importance
+   - Engagement metrics are most influential
+   - Time-based features provide secondary patterns
+   - View-normalized metrics create distinct patterns
 
-9. **ANN Training**
-   - Train a backpropagation neural network using the signature vectors.
+## Future Improvements
+1. Class Imbalance Solutions:
+   - Implement SMOTE or other sampling techniques
+   - Class weights adjustment
+   - Stratified sampling
 
----
+2. Model Enhancements:
+   - Ensemble methods
+   - Different neural network architectures
+   - Feature engineering optimization
 
-### 🧪 Testing Phase
+3. Performance Optimization:
+   - Hyperparameter tuning
+   - Cross-validation strategies
+   - Alternative scaling methods
 
-1. **Preprocess Test Image**
-   - Convert to column vector and subtract mean face.
+## Contributing
+Contributions to improve the classification system are welcome. Please ensure to:
+1. Follow the existing code style
+2. Add tests for new features
+3. Update documentation as needed
+4. Submit pull requests with detailed descriptions
 
-2. **Feature Projection**
-   - Project onto eigenfaces to get test signature.
-
-3. **Classification**
-   - Use trained ANN to classify the test image.
-
----
-
-## 📊 Evaluation
-
-- **Accuracy vs. k Value**
-  - Vary `k` and plot accuracy to analyze performance.
-
-- **Imposter Detection**
-  - Add unknown faces to test set and evaluate rejection capability.
-
----
-
-## 📈 Output
-
-- Accuracy graph vs. number of eigenfaces (`k`)
-- Classification results from ANN
-- Imposter recognition performance
-
----
-
-## 🧪 Notes
-
-- Use 60% of data for training and 40% for testing.
-- Experiment with different values of `k` to optimize accuracy.
-
----
-
-## 👨‍💻 Author
-
-This project was implemented as part of a machine learning module focused on dimensionality reduction and neural networks.
+## License
+This project is available under the MIT License.
